@@ -51,6 +51,7 @@ class CSVIngestor(BaseIngestor):
         return self.data
 
     # TODO: Stop this splitting words
+    # TODO: Make this a generator
     def chunk_text(self, overlap: int = 50) -> List[Dict]:
         """
         Splits the text column into fixed-length chunks with overlap while preserving row-level and document-level metadata.
@@ -64,16 +65,18 @@ class CSVIngestor(BaseIngestor):
         assert overlap < self.chunk_size, "Overlap must be less than chunk size."
         chunks = []
 
+        doc_metadata = self.document_metadata if self.document_metadata else {}
+
         for index, row in enumerate(self.data.itertuples(index=True)):
             row_metadata = {col: getattr(row, col) for col in self.metadata_fields}
             text = getattr(row, self.text_column)
 
             # Create base metadata shared across all chunks for this row
             base_metadata = {
-                "source": os.path.basename(self.file_path),
-                "file_path": self.file_path,
+                "source": str(os.path.basename(self.file_path)),
+                "file_path": str(self.file_path),
                 "row_index": index,
-                **self.document_metadata,
+                **doc_metadata,
                 **row_metadata,
             }
 
