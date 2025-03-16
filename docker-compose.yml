@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ragl:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ./ollama_models:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
