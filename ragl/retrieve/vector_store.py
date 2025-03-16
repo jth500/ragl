@@ -87,7 +87,7 @@ class ChromaVectorStore:
         Returns:
             List[Dict]: Retrieved documents with metadata.
         """
-        query_embedding = self.embedder([query_text])  # Ensure correct format
+        query_embedding = self.embedder([query_text])
 
         results = self.collection.query(
             query_embeddings=query_embedding, n_results=top_k
