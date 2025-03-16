@@ -3,7 +3,6 @@ import re
 from typing import Dict, List, Optional
 
 import pandas as pd
-from tokenizers import Tokenizer
 
 from .base import BaseIngestor
 
@@ -38,17 +37,6 @@ class CSVIngestor(BaseIngestor):
         self.metadata_fields = metadata_fields or []
         self.tokenizer = tokenizer
         self.data = pd.DataFrame()
-
-    # @property
-    # def tokenizer(self):
-    #     # lazy load the tokenizer
-    #     if isinstance(self._tokenizer, str):
-    #         self._tokenizer = Tokenizer.from_pretrained(self._tokenizer)
-    #     return self._tokenizer
-
-    # @tokenizer.setter
-    # def tokenizer(self, tokenizer):
-    #     self._tokenizer = tokenizer
 
     def read_file(self) -> pd.DataFrame:
         """Reads the CSV file and returns a DataFrame."""
@@ -130,7 +118,7 @@ if __name__ == "__main__":
 
     # Display results
     print(f"Generated {len(chunks)} chunks.\n")
-    for i, chunk in enumerate(chunks):  # Show first 5 chunks
+    for i, chunk in enumerate(chunks):
         print(f"Chunk {i + 1}:")
         print("Text:", chunk["text"])
         print("Metadata:", chunk["metadata"])

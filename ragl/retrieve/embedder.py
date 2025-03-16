@@ -1,13 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Callable, List, Optional
 
-print(1)
 import ollama
-
-print(2)
 from sentence_transformers import SentenceTransformer
-
-print(3)
 
 
 class BaseEmbedder(ABC):
