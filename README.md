@@ -1,2 +1,5 @@
 # ragl
-Tool kit for local rag pipelines
+
+A lightweight python framework for local document review using retrieval augmented generation.
+
+
